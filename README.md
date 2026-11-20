@@ -19,6 +19,7 @@ Postman collection for testing the **Cart module** of the OpenCart REST API agai
 - [XAMPP](https://www.apachefriends.org/) with **Apache** and **MySQL** running
 - OpenCart installed locally (e.g. `http://localhost/opencart/`)
 - [Postman](https://www.postman.com/downloads/)
+- [Node.js](https://nodejs.org/) (includes npm), only needed for command-line runs with Newman
 - At least one enabled product with stock in the store (note its `product_id`)
 
 ## OpenCart Setup (one-time)
@@ -73,6 +74,42 @@ Postman collection for testing the **Cart module** of the OpenCart REST API agai
 5. **Remove product from cart** – remove the item, then run **Cart content** again to confirm it is gone.
 
 You can also run the whole folder with **Collection Runner** (the order above is preserved).
+
+## Run from Command Line (Newman)
+
+The collection can also be run from CMD using **Newman**, Postman's command-line runner.
+
+1. Install Node.js, then check the install:
+
+```bash
+node -v
+npm -v
+```
+
+2. Install Newman (and optionally the HTML report plugin):
+
+```bash
+npm install -g newman
+npm install -g newman-reporter-htmlextra
+```
+
+3. Export the collection and the environment from Postman as JSON files into this folder.
+
+4. Run the collection:
+
+```bash
+newman run Opencart_RESTAPI_CartModule.postman_collection.json -e OpenCart_Local.postman_environment.json
+```
+
+5. Generate an HTML report:
+
+```bash
+newman run Opencart_RESTAPI_CartModule.postman_collection.json -e OpenCart_Local.postman_environment.json -r cli,htmlextra
+```
+
+The report is saved in the `newman` folder. Replace the file names above with your actual exported file names.
+
+> XAMPP (Apache + MySQL) must be running before you start the command-line run, the same as for Postman.
 
 ### Sample token-saving script (Tests tab of request 1)
 
